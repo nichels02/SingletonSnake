@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,7 +32,7 @@ public class Jugador : MonoBehaviour
         {
             GameController.instance.OcuparPosicion(MyPosicion, collision.GetComponent<Cuadricula>());
             MyPosicion = collision.GetComponent<Cuadricula>();
-            transform.position = MyPosicion.transform.position;
+            
 
             print("colicionoConCuadricula");
         }
@@ -111,6 +112,7 @@ public class Jugador : MonoBehaviour
                     {
                         if (LaDireccionFinal != Direccion.Izquierda)
                         {
+                            transform.position = MyPosicion.transform.position;
                             LaDireccion = Direccion.Derecha;
                             LaDireccionFinal = Direccion.Derecha;
                             Rigidbody.velocity = Vector2.right * velocity;
@@ -123,6 +125,7 @@ public class Jugador : MonoBehaviour
                     {
                         if (LaDireccionFinal != Direccion.Derecha)
                         {
+                            transform.position = MyPosicion.transform.position;
                             LaDireccionFinal = Direccion.Izquierda;
                             LaDireccion = Direccion.Izquierda;
                             Rigidbody.velocity = Vector2.left * velocity;
@@ -135,6 +138,7 @@ public class Jugador : MonoBehaviour
                     {
                         if (LaDireccionFinal != Direccion.Abajo)
                         {
+                            transform.position = MyPosicion.transform.position;
                             LaDireccionFinal = Direccion.Arriba;
                             LaDireccion = Direccion.Arriba;
                             Rigidbody.velocity = Vector2.up * velocity;
@@ -148,6 +152,7 @@ public class Jugador : MonoBehaviour
                     {
                         if (LaDireccionFinal != Direccion.Arriba)
                         {
+                            transform.position = MyPosicion.transform.position;
                             LaDireccionFinal = Direccion.Abajo;
                             LaDireccion = Direccion.Abajo;
                             Rigidbody.velocity = Vector2.down * velocity;
@@ -216,44 +221,57 @@ public class Jugador : MonoBehaviour
             {
                 case Direccion.Derecha:
                     {
-                        Vector2 posicion = new Vector2(transform.position.x - distancia, transform.position.y);
-                        GameObject gameObject = Instantiate(PreFabJugador, posicion, Quaternion.identity);
+                        Vector2 posicion = new Vector2(MyPosicion.posicion.x - 1, MyPosicion.posicion.y);
+                        Vector2 posicionParaInstanciar = GameController.instance.ElMapa[(int)posicion.x, (int)posicion.y].transform.position;
+
+                        GameObject gameObject = Instantiate(PreFabJugador, posicionParaInstanciar, Quaternion.identity);
                         hijo = gameObject.GetComponent<Jugador>();
                         hijo.Padre = this.GetComponent<Jugador>();
-                        hijo.MyPosicion = GameController.instance.ElMapa[((int)MyPosicion.posicion.x) , ((int)MyPosicion.posicion.y)];
+                        hijo.LaDireccionFinal = LaDireccionFinal;
+                        hijo.MyPosicion = GameController.instance.ElMapa[(int)posicion.x, (int)posicion.y];
                         hijo.movimiento();
                     }
                     break;
 
                 case Direccion.Izquierda:
                     {
-                        Vector2 posicion = new Vector2(transform.position.x + distancia, transform.position.y);
-                        GameObject gameObject = Instantiate(PreFabJugador, posicion, Quaternion.identity);
+                        Vector2 posicion = new Vector2(MyPosicion.posicion.x + 1, MyPosicion.posicion.y);
+                        Vector2 posicionParaInstanciar = GameController.instance.ElMapa[(int)posicion.x, (int)posicion.y].transform.position;
+
+
+                        GameObject gameObject = Instantiate(PreFabJugador, posicionParaInstanciar, Quaternion.identity);
                         hijo = gameObject.GetComponent<Jugador>();
                         hijo.Padre = this.GetComponent<Jugador>();
-                        hijo.MyPosicion = GameController.instance.ElMapa[((int)MyPosicion.posicion.x), ((int)MyPosicion.posicion.y)];
+                        hijo.LaDireccionFinal = LaDireccionFinal;
+                        hijo.MyPosicion = GameController.instance.ElMapa[(int)posicion.x, (int)posicion.y];
                         hijo.movimiento();
                     }
                     break;
 
                 case Direccion.Arriba:
                     {
-                        Vector2 posicion = new Vector2(transform.position.x, transform.position.y - distancia);
-                        GameObject gameObject = Instantiate(PreFabJugador, posicion, Quaternion.identity);
+                        Vector2 posicion = new Vector2(MyPosicion.posicion.x, MyPosicion.posicion.y - 1);
+                        Vector2 posicionParaInstanciar = GameController.instance.ElMapa[(int)posicion.x, (int)posicion.y].transform.position;
+
+                        GameObject gameObject = Instantiate(PreFabJugador, posicionParaInstanciar, Quaternion.identity);
                         hijo = gameObject.GetComponent<Jugador>();
                         hijo.Padre = this.GetComponent<Jugador>();
-                        hijo.MyPosicion = GameController.instance.ElMapa[((int)MyPosicion.posicion.x), ((int)MyPosicion.posicion.y)];
+                        hijo.LaDireccionFinal = LaDireccionFinal;
+                        hijo.MyPosicion = GameController.instance.ElMapa[(int)posicion.x, (int)posicion.y];
                         hijo.movimiento();
                     }
                     break;
 
                 case Direccion.Abajo:
                     {
-                        Vector2 posicion = new Vector2(transform.position.x, transform.position.y + distancia);
-                        GameObject gameObject = Instantiate(PreFabJugador, posicion, Quaternion.identity);
+                        Vector2 posicion = new Vector2(MyPosicion.posicion.x, MyPosicion.posicion.y + 1);
+                        Vector2 posicionParaInstanciar = GameController.instance.ElMapa[(int)posicion.x, (int)posicion.y].transform.position;
+
+                        GameObject gameObject = Instantiate(PreFabJugador, posicionParaInstanciar, Quaternion.identity);
                         hijo = gameObject.GetComponent<Jugador>();
                         hijo.Padre = this.GetComponent<Jugador>();
-                        hijo.MyPosicion = GameController.instance.ElMapa[((int)MyPosicion.posicion.x), ((int)MyPosicion.posicion.y)];
+                        hijo.LaDireccionFinal = LaDireccionFinal;
+                        hijo.MyPosicion = GameController.instance.ElMapa[(int)posicion.x, (int)posicion.y];
                         hijo.movimiento();
                     }
                     break;

@@ -1,3 +1,5 @@
+
+
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -6,7 +8,7 @@ using UnityEngine.InputSystem;
 
 public class JugadorPadre : Jugador
 {
-
+    bool comio;
     void Start()
     {
         Rigidbody = GetComponent<Rigidbody2D>();
@@ -20,6 +22,11 @@ public class JugadorPadre : Jugador
             MyPosicion = collision.GetComponent<Cuadricula>();
             movimiento();
             transform.position = MyPosicion.transform.position;
+            if (comio)
+            {
+                comio = false;
+                CrearHijo();
+            }
             /*switch (transform.rotation.z)
             {
                 case 0:
@@ -51,44 +58,49 @@ public class JugadorPadre : Jugador
     public void comida()
     {
         GameController.instance.GenerarComida();
-        CrearHijo();
+        comio = true;
+        //CrearHijo();
     }
 
     public void Controles(InputAction.CallbackContext value)
     {
-        Vector2 Movimiento = value.ReadValue<Vector2>();
-        if (Movimiento == Vector2.down)
+        if (LaDireccion != Direccion.Morir)
         {
-            LaDireccion = Direccion.Abajo;
-            if (Rigidbody.velocity == Vector2.zero)
+            Vector2 Movimiento = value.ReadValue<Vector2>();
+            if (Movimiento == Vector2.down)
             {
-                movimiento();
+                LaDireccion = Direccion.Abajo;
+                if (Rigidbody.velocity == Vector2.zero)
+                {
+                    movimiento();
+                }
+            }
+            else if (Movimiento == Vector2.up)
+            {
+                LaDireccion = Direccion.Arriba;
+                if (Rigidbody.velocity == Vector2.zero)
+                {
+                    movimiento();
+                }
+            }
+            else if (Movimiento == Vector2.left)
+            {
+                LaDireccion = Direccion.Izquierda;
+                if (Rigidbody.velocity == Vector2.zero)
+                {
+                    movimiento();
+                }
+            }
+            else if (Movimiento == Vector2.right)
+            {
+                LaDireccion = Direccion.Derecha;
+                if (Rigidbody.velocity == Vector2.zero)
+                {
+                    movimiento();
+                }
             }
         }
-        else if (Movimiento == Vector2.up)
-        {
-            LaDireccion = Direccion.Arriba;
-            if (Rigidbody.velocity == Vector2.zero)
-            {
-                movimiento();
-            }
-        }
-        else if (Movimiento == Vector2.left)
-        {
-            LaDireccion = Direccion.Izquierda;
-            if (Rigidbody.velocity == Vector2.zero)
-            {
-                movimiento();
-            }
-        }
-        else if (Movimiento == Vector2.right)
-        {
-            LaDireccion = Direccion.Derecha;
-            if (Rigidbody.velocity == Vector2.zero)
-            {
-                movimiento();
-            }
-        }
+        
     }
 
 

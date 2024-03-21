@@ -230,7 +230,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a44a61492f39bbd4e9ee03d8a1b5c592, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Teletransporte: {fileID: 0}
   velocity: 1
   MyPosicion: {fileID: 0}
   LaDireccion: 0
@@ -272,7 +271,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.09, y: 0}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
