@@ -4,9 +4,8 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
-public class GameController : MonoBehaviour
+public class GameController : singletonGenerico<GameController>
 {
-    public static GameController instance { get; private set; }
 
 
     [SerializeField] int TamanoMapa = 11;
@@ -20,17 +19,6 @@ public class GameController : MonoBehaviour
 
     [SerializeField] PointsController PointsController;
 
-    private void Awake()
-    {
-        if(instance!=null && instance != this)
-        {
-            Destroy(this);
-        }
-        else
-        {
-            instance = this;
-        }
-    }
 
 
     private void Start()

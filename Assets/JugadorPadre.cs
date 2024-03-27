@@ -18,7 +18,7 @@ public class JugadorPadre : Jugador
     {
         if (collision.tag == "Cuadricula")
         {
-            GameController.instance.OcuparPosicion(MyPosicion, collision.GetComponent<Cuadricula>());
+            GameController.Instance.OcuparPosicion(MyPosicion, collision.GetComponent<Cuadricula>());
             MyPosicion = collision.GetComponent<Cuadricula>();
             movimiento();
             transform.position = MyPosicion.transform.position;
@@ -57,7 +57,7 @@ public class JugadorPadre : Jugador
 
     public void comida()
     {
-        GameController.instance.GenerarComida();
+        GameController.Instance.GenerarComida();
         comio = true;
         //CrearHijo();
     }
