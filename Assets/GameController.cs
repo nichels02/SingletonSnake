@@ -78,5 +78,9 @@ public class GameController : singletonGenerico<GameController>
     }
 
 
+    public void Perdiste()
+    {
+        PointsController.ActualizarPuntajeFin();
 
+    }
 }

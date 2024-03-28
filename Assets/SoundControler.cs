@@ -18,11 +18,13 @@ public class SoundControler : singletonGenericoPersistente<SoundControler>
     IEnumerator WaitForSound()
     {
         // Espera hasta que termine el clip
-        yield return new WaitForSeconds(ElAudioSource.clip.length);
+        
 
         int random = UnityEngine.Random.Range(0, Musica.Length);
         ElAudioSource.clip = Musica[random];
         ElAudioSource.Play();
+
+        yield return new WaitForSeconds(ElAudioSource.clip.length);
     }
     public void CambiarMusica(AudioClip ElAudio)
     {
@@ -30,5 +32,6 @@ public class SoundControler : singletonGenericoPersistente<SoundControler>
         ElAudioSource.Play();
     }
 
+    
 
 }

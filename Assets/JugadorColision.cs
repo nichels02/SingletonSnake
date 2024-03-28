@@ -17,6 +17,7 @@ public class JugadorColision : MonoBehaviour
         else if (collision.tag == "Muro")
         {
             JugadorPadre.Muerte();
+            GameController.Instance.Perdiste();
         }
     }
 }
